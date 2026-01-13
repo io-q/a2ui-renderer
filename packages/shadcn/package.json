@@ -1,0 +1,42 @@
+{
+    "name": "@a2ui-renderer/shadcn",
+    "version": "0.9.0-alpha.1",
+    "author": "io-q",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:io-q/a2ui-renderer.git"
+  },
+  "type": "module",
+    "main": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/index.js"
+        },
+        "./catalog": {
+            "types": "./dist/catalog.d.ts",
+            "import": "./dist/catalog.js"
+        }
+    },
+    "scripts": {
+        "build": "bun build ./src/index.ts --outdir ./dist --target browser --external react",
+        "test": "bun test"
+    },
+    "peerDependencies": {
+        "react": "^18.0.0 || ^19.0.0",
+        "@radix-ui/react-slot": "^1.0.0"
+    },
+    "dependencies": {
+        "@a2ui-renderer/react": "workspace:*",
+        "@a2ui-renderer/stdlib": "workspace:*",
+        "class-variance-authority": "^0.7.0",
+        "clsx": "^2.1.0",
+        "tailwind-merge": "^2.2.0"
+    },
+    "devDependencies": {
+        "@types/react": "^18.2.0",
+        "react": "^18.2.0",
+        "typescript": "^5.3.0"
+    }
+}

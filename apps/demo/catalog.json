@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://a2ui.org/custom_catalog.json",
+  "title": "Custom A2UI Component Catalog",
+  "version": "0.0.1",
+  "components": {
+    "Text": {
+      "type": "object",
+      "description": "Displays text content, optionally bound to data model.",
+      "properties": {}
+    },
+    "Heading": {
+      "type": "object",
+      "description": "Displays a heading with configurable level.",
+      "properties": {}
+    },
+    "Button": {
+      "type": "object",
+      "description": "An interactive button that dispatches actions.",
+      "properties": {}
+    },
+    "TextField": {
+      "type": "object",
+      "description": "A text input with two-way data binding.",
+      "properties": {}
+    },
+    "Column": {
+      "type": "object",
+      "description": "A vertical flex container.",
+      "properties": {}
+    },
+    "Row": {
+      "type": "object",
+      "description": "A horizontal flex container.",
+      "properties": {}
+    },
+    "Card": {
+      "type": "object",
+      "description": "A card container with visual styling.",
+      "properties": {}
+    }
+  }
+}

@@ -1,0 +1,38 @@
+# A2UI Component Rules
+
+Available components and their properties:
+
+## Text
+Displays text content, optionally bound to data model.
+
+Properties:
+
+## Heading
+Displays a heading with configurable level.
+
+Properties:
+
+## Button
+An interactive button that dispatches actions.
+
+Properties:
+
+## TextField
+A text input with two-way data binding.
+
+Properties:
+
+## Column
+A vertical flex container.
+
+Properties:
+
+## Row
+A horizontal flex container.
+
+Properties:
+
+## Card
+A card container with visual styling.
+
+Properties:
