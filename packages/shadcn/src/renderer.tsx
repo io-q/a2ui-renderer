@@ -27,7 +27,7 @@ export function A2UIShadcnRenderer({
     components = {},
     children,
 }: A2UIShadcnRendererProps) {
-    const mergedComponents = { ...shadcnCatalog, ...components };
+    const mergedComponents = { ...shadcnCatalog, ...components } as any;
     const functionRegistry = createFunctionRegistry();
 
     return (

@@ -2,11 +2,11 @@
     "name": "@a2ui-renderer/shadcn",
     "version": "0.9.0-alpha.1",
     "author": "io-q",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:io-q/a2ui-renderer.git"
-  },
-  "type": "module",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:io-q/a2ui-renderer.git"
+    },
+    "type": "module",
     "main": "./dist/index.js",
     "types": "./dist/index.d.ts",
     "exports": {
@@ -20,7 +20,7 @@
         }
     },
     "scripts": {
-        "build": "bun build ./src/index.ts --outdir ./dist --target browser --external react",
+        "build": "vite build && tsc --emitDeclarationOnly --outDir ./dist",
         "test": "bun test"
     },
     "peerDependencies": {
@@ -35,8 +35,11 @@
         "tailwind-merge": "^2.2.0"
     },
     "devDependencies": {
+        "@types/node": "^25.0.7",
         "@types/react": "^18.2.0",
+        "@vitejs/plugin-react": "^5.1.2",
         "react": "^18.2.0",
-        "typescript": "^5.3.0"
+        "typescript": "^5.3.0",
+        "vite": "^7.3.1"
     }
 }

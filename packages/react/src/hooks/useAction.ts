@@ -10,7 +10,7 @@ import { useA2UIContext } from '../context.js';
  */
 interface ActionDef {
   name: string;
-  context?: Record<string, { path?: string } | string | number | boolean>;
+  context?: Record<string, any>;
 }
 
 /**

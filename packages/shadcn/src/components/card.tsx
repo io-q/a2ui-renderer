@@ -7,7 +7,7 @@ import { cn } from '../lib/utils';
 import type { A2UIComponentProps } from '@a2ui-renderer/react';
 import type { ReactNode } from 'react';
 
-interface CardProps extends A2UIComponentProps {
+interface CardProps extends Omit<A2UIComponentProps, 'children'> {
     className?: string;
     children?: ReactNode;
 }

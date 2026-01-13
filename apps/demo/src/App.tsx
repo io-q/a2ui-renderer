@@ -3,14 +3,12 @@ import { currency, relativeTime } from '@a2ui-renderer/stdlib'
 import { componentMap } from './components'
 import './App.css'
 
-const { Heading, Text, TextField, Button, Card, Column, Row } = componentMap
+const { Text, TextField, Button, Card, Column, Row } = componentMap
 
 function App() {
   // Demo: Direct use of hooks and stdlib
-  const [name, setName] = useDataValue<string>('/user/name')
+  const [name] = useDataValue<string>('/user/name')
   const [email] = useDataValue<string>('/user/email')
-  const [amount] = useDataValue<number>('/order/amount')
-  const [orderDate] = useDataValue<string>('/order/date')
 
   return (
     <div className="app">

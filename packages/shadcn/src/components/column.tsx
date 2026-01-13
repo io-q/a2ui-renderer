@@ -6,7 +6,7 @@ import { cn } from '../lib/utils';
 import type { A2UIComponentProps } from '@a2ui-renderer/react';
 import type { ReactNode } from 'react';
 
-interface LayoutProps extends A2UIComponentProps {
+interface LayoutProps extends Omit<A2UIComponentProps, 'children'> {
     gap?: 'none' | 'sm' | 'md' | 'lg';
     className?: string;
     children?: ReactNode;

@@ -1,0 +1,74 @@
+name: Publish Packages
+
+on:
+  push:
+    tags:
+      - 'v*'  # Trigger on version tags like v0.9.0-alpha.2
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'npm tag (e.g. next, alpha, latest)'
+        required: true
+        default: 'alpha'
+      dry_run:
+        description: 'Dry run (build but do not publish)'
+        type: boolean
+        required: false
+        default: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+          
+      - name: Install Dependencies
+        run: bun install
+        
+      - name: Build All Packages
+        run: bun run build
+        
+      - name: Publish @a2ui-renderer/stdlib
+        if: ${{ !inputs.dry_run }}
+        run: |
+          cd packages/stdlib
+          npm publish --tag ${{ inputs.tag }} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @a2ui-renderer/react
+        if: ${{ !inputs.dry_run }}
+        run: |
+          cd packages/react
+          npm publish --tag ${{ inputs.tag }} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @a2ui-renderer/scanner
+        if: ${{ !inputs.dry_run }}
+        run: |
+          cd packages/scanner
+          npm publish --tag ${{ inputs.tag }} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Publish @a2ui-renderer/shadcn
+        if: ${{ !inputs.dry_run }}
+        run: |
+          cd packages/shadcn
+          npm publish --tag ${{ inputs.tag }} --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

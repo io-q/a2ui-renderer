@@ -26,11 +26,11 @@ export interface A2UIComponentProps {
   /** The component's unique ID */
   id: string;
   /** The component type name */
-  component: string;
+  component?: string;
   /** Child component IDs (for containers) */
-  children?: string[];
+  children?: any;
   /** All other properties from the A2UI message */
-  [key: string]: unknown;
+  [key: string]: any;
 }
 
 /**
