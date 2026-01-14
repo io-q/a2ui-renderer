@@ -53,6 +53,10 @@ export interface A2UIContextValue {
   dispatchAction: (name: string, context: Record<string, unknown>) => void;
   /** The current surface ID */
   surfaceId: string | null;
+  /** Internal: Set surface ID */
+  setSurfaceId: (id: string | null) => void;
+  /** Internal: Set component store */
+  setComponentStore: (fn: (prev: Map<string, A2UIComponentProps>) => Map<string, A2UIComponentProps>) => void;
 }
 
 /**

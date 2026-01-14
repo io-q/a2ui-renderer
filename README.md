@@ -82,20 +82,46 @@ cd apps/demo && bun run dev
 
 ## Scanner CLI
 
-Generate a component catalog from JSDoc annotations:
+The `a2ui-scan` tool generates a JSON catalog of your components, which can be fed to an LLM to teach it your available UI elements.
 
+### Examples
+
+**1. Basic Scan**
+Scan a directory and output `catalog.json` to the current folder.
 ```bash
-bun run packages/scanner/dist/cli.js ./src/components -o catalog.json -r rules.txt
+npx a2ui-scan ./src/components
 ```
 
-Mark components with `@a2ui-component`:
+**2. Custom Output & Rules**
+Generate the catalog and a "Rules" text file for system prompts.
+```bash
+npx a2ui-scan ./src/lib/ui --output public/catalog.json --rules prompts/ui-rules.txt
+```
+
+**3. Watch Mode (Recommended for Dev)**
+Re-scan automatically when files change.
+```bash
+npx a2ui-scan ./src/components --watch
+```
+
+### How to Mark Components
+
+Add the `@a2ui-component` tag to your JSDoc. The component name in the tag becomes the ID used by the LLM.
 
 ```tsx
 /**
- * A custom button that triggers actions.
+ * A primary button component.
+ * 
  * @a2ui-component Button
+ * @param label - The text to display inside the button
+ * @param variant - Visual style ("default" | "destructive" | "outline")
  */
-export function Button({ label, action }: ButtonProps) { ... }
+export function Button({ 
+  label, 
+  variant = "default" 
+}: ButtonProps) {
+  return <button className={variant}>{label}</button>
+}
 ```
 
 ## Architecture

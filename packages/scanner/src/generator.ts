@@ -106,3 +106,70 @@ export function generateRules(scanResult: ScanResult): string {
 
   return lines.join('\n');
 }
+
+// ===== OpenAI Function Calling Schema Support =====
+
+export interface OpenAIToolParameter {
+  type: string;
+  description?: string;
+  enum?: string[];
+}
+
+export interface OpenAIToolFunction {
+  name: string;
+  description?: string;
+  parameters: {
+    type: 'object';
+    properties: Record<string, OpenAIToolParameter>;
+    required?: string[];
+  };
+}
+
+export interface OpenAITool {
+  type: 'function';
+  function: OpenAIToolFunction;
+}
+
+/**
+ * Generates OpenAI Function Calling compatible tool definitions
+ * Can be used directly with GPT-4, Claude, or any OpenAI-compatible API
+ */
+export function generateOpenAITools(scanResult: ScanResult): OpenAITool[] {
+  const tools: OpenAITool[] = [];
+
+  for (const component of scanResult.components) {
+    const properties: Record<string, OpenAIToolParameter> = {};
+    const required: string[] = [];
+
+    for (const prop of component.properties) {
+      // Skip internal A2UI props
+      if (prop.name === 'id' || prop.name === 'component' || prop.name === 'children') {
+        continue;
+      }
+
+      properties[prop.name] = {
+        type: prop.type,
+        description: prop.description,
+      };
+
+      if (prop.required) {
+        required.push(prop.name);
+      }
+    }
+
+    tools.push({
+      type: 'function',
+      function: {
+        name: `render_${component.name.toLowerCase()}`,
+        description: component.description || `Render a ${component.name} component`,
+        parameters: {
+          type: 'object',
+          properties,
+          required: required.length > 0 ? required : undefined,
+        },
+      },
+    });
+  }
+
+  return tools;
+}

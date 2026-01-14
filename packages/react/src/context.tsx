@@ -136,6 +136,8 @@ export function A2UIProvider({
             functionRegistry,
             dispatchAction,
             surfaceId,
+            setSurfaceId,
+            setComponentStore,
         }),
         [
             dataModel,
@@ -166,15 +168,25 @@ export function useA2UI() {
         (message: ServerToClientMessage) => {
             if ('createSurface' in message) {
                 // Handle createSurface
-                console.log('Creating surface:', message.createSurface.surfaceId);
+                ctx.setSurfaceId(message.createSurface.surfaceId);
             } else if ('updateComponents' in message) {
                 // Handle updateComponents
-                console.log('Updating components:', message.updateComponents.components.length);
+                ctx.setComponentStore((prev) => {
+                    const next = new Map<string, A2UIComponentProps>(prev);
+                    for (const comp of message.updateComponents.components) {
+                        next.set(comp.id, comp);
+                    }
+                    return next;
+                });
             } else if ('updateDataModel' in message) {
                 const { path, value } = message.updateDataModel;
                 ctx.setDataValue(path ?? '/', value);
             } else if ('deleteSurface' in message) {
-                console.log('Deleting surface:', message.deleteSurface.surfaceId);
+                // Handle deleteSurface
+                if (ctx.surfaceId === message.deleteSurface.surfaceId) {
+                    ctx.setSurfaceId(null);
+                    ctx.setComponentStore(() => new Map());
+                }
             }
         },
         [ctx]
