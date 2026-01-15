@@ -5,7 +5,7 @@ import path from 'path'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/a2ui-renderer/',  // GitHub Pages base path (repo name)
+  base: '/a2ui-renderer/demo/',  // GitHub Pages base path (repo name + subfolder)
   resolve: {
     dedupe: ['react', 'react-dom'],  // Prevent duplicate React instances
     alias: {

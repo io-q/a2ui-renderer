@@ -35,13 +35,23 @@ jobs:
       - name: Build All Packages
         run: bun run build
 
+      - name: Build Docs
+        run: cd apps/docs && bun run build
+
+      - name: Prepare Deployment
+        run: |
+          # Create demo directory in docs dist
+          mkdir -p apps/docs/.vitepress/dist/demo
+          # Copy demo dist to docs demo folder
+          cp -r apps/demo/dist/* apps/docs/.vitepress/dist/demo/
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: './apps/demo/dist'
+          path: './apps/docs/.vitepress/dist'
 
   deploy:
     environment:
